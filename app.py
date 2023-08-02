@@ -1,4 +1,10 @@
 import streamlit as st
+import os
+from langchain.llms import OpenAI
+
+from langchain_helper import gen_resto_item
+
+os.environ["OPENAI_API_KEY"] = "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"
 
 cuisine_options = [
     "Italian",
@@ -24,37 +30,13 @@ cuisine_options = [
     "Peruvian",
     "Lebanese",
     "South African",
-    "Malaysian",
-    "Indonesian",
-    "Italian-American",
-    "Tex-Mex",
-    "Scandinavian",
-    "Cuban",
-    "Argentinian",
-    "Irish",
-    "Australian",
-    "British",
-    "Ukrainian",
-    "Dutch",
-    "Polish",
-    "Canadian",
-    "Israeli",
-    "Filipino",
-    "Jamaican"
 ]
 
 st.title("Restaurant Name Generator")
 cuisine = st.sidebar.selectbox("Pick a Cuisine", cuisine_options)
 
-from langchain.llms import OpenAI
-from langchain.chains import SequentialChain
-from langchain.prompts import PromptTemplate
-from langchain.chains import LLMChain
-
-def gen_resto_item(cuisine):
-    return {
-        'restaurant_name' : '',
-    }
+llm = OpenAI(temperature=0.6)
 
 if cuisine:
-    gen_resto_item(cuisine)
+    result = gen_resto_item(cuisine)
+    st.write(result)
