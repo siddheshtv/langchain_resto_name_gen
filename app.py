@@ -1,10 +1,9 @@
 import streamlit as st
-import os
-from langchain.llms import OpenAI
-
 from langchain_helper import gen_resto_item
+from secret_key import openai_api_key
+import os
 
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = openai_api_key
 
 cuisine_options = [
     "Italian",
@@ -35,8 +34,12 @@ cuisine_options = [
 st.title("Restaurant Name Generator")
 cuisine = st.sidebar.selectbox("Pick a Cuisine", cuisine_options)
 
-llm = OpenAI(temperature=0.6)
+
 
 if cuisine:
-    result = gen_resto_item(cuisine)
-    st.write(result)
+    response = gen_resto_item(cuisine)
+    st.header(response['restaurant_name'])
+    menu_items = response['menu_items'].strip().split(",")
+    st.write("Menu Items")
+    for item in menu_items:
+        st.write(item)
