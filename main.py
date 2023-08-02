@@ -1,5 +1,5 @@
 import os
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = "API_HERE"
 
 
 # llm = OpenAI(temperature = 0.7)
